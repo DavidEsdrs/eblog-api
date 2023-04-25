@@ -15,6 +15,9 @@ export class Post {
     @Column({ name: "content", type: "longtext" })
     content: string;
 
+    @Column({ name: "featured_image", type: "varchar", length: 30 })
+    featured_image: string;
+
     @CreateDateColumn()
     created_at: Date;
 

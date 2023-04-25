@@ -14,7 +14,7 @@ export const ensureAuthUser = (req: Request, res: Response, next: NextFunction) 
         if(err) {
             throw new Error("Invalid JWT!");
         }
-        req.user_id = Number(decoded);
+        req.user_id = Number(decoded.sub);
         return next();
     });
 }

@@ -15,6 +15,18 @@ export class CreatePostsTable1682426203039 implements MigrationInterface {
                     generationStrategy: "increment"
                 },
                 {
+                    name: "title",
+                    type: "varchar",
+                    length: "100",
+                    isNullable: false
+                },
+                {
+                    name: "summary",
+                    type: "varchar",
+                    length: "255",
+                    isNullable: false
+                },
+                {
                     name: "content",
                     type: "longtext",
                     isNullable: false

@@ -3,4 +3,5 @@ export interface ICreatePostDTO {
     content: string;
     title: string;
     summary: string;
+    featured_image: string
 }

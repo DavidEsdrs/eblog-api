@@ -9,12 +9,12 @@ export class CreatePostService {
         private postsRepository: Repository<Post>
     ) {}
 
-    async execute({ content, creator, summary, title }: ICreatePostDTO) {
+    async execute({ content, creator, summary, title, featured_image }: ICreatePostDTO) {
         const user = await this.usersRepository.findOne({ where: { id: creator } });
         if(!user) {
             throw new Error("User doesn't exist!");
         }
-        const post = this.postsRepository.create({ content, creator: user, summary, title });
+        const post = this.postsRepository.create({ content, creator: user, summary, title, featured_image });
         await this.postsRepository.save(post);
         return post;
     }

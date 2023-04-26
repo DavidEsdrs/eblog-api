@@ -4,7 +4,9 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import mime from "mime";
-import { Request } from "express";
+import { NextFunction, Request, Response } from "express";
+import { JSDOM } from "jsdom";
+import DOMPurify from "dompurify";
 
 export const validatePost = createBodyValidator(postSchema);
 
@@ -49,6 +51,14 @@ export const parsePost = (file_field: string) => {
     }).single(file_field);
 }
 
-const createPostMiddlewares = [ parsePost("featured_image"), validatePost ];
+export const sanitizeContent = (req: Request, res: Response, next: NextFunction) => {
+    const dom = new JSDOM();
+    const domPurify = DOMPurify(dom.window);
+    const cleanContent = domPurify.sanitize(req.body.content);
+    req.body.content = cleanContent;
+    return next();
+}
+
+const createPostMiddlewares = [ parsePost("featured_image"), sanitizeContent, validatePost ];
 
 export { createPostMiddlewares };

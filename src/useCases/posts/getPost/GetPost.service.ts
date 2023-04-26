@@ -9,6 +9,9 @@ export class GetPostService {
 
     async execute({ id, user_id }: IGetPostDTO) {
         const post = await this.postsRepository.findOne({ where: { id } });
+        if(!post) {
+            throw new Error("The given post id doesn't exist in database!");
+        }
         return post;
     }
 }

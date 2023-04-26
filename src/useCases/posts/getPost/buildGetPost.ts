@@ -1,11 +1,9 @@
-import { Post } from "../../../entities/Post"
-import AppDataSource from "../../../ormconfig"
+import { PostsRepository } from "../../../repositories/implementations/PostsRepository";
 import { GetPostController } from "./GetPost.controller";
 import { GetPostService } from "./GetPost.service";
 
 export const buildGetPost = () => {
-    const usersRepository = AppDataSource.getRepository(Post);
-    const service = new GetPostService(usersRepository);
+    const service = new GetPostService(PostsRepository);
     const controller = new GetPostController(service);
     return controller;
 }

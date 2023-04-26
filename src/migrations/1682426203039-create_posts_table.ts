@@ -32,6 +32,12 @@ export class CreatePostsTable1682426203039 implements MigrationInterface {
                     isNullable: false
                 },
                 {
+                    name: "featured_image",
+                    type: "varchar",
+                    length: "30",
+                    isNullable: true
+                },
+                {
                     name: "created_at",
                     type: "timestamp",
                     default: "now()"

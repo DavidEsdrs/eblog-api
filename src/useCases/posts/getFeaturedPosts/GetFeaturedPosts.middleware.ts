@@ -10,7 +10,8 @@ const querySchema = z.object({
         transform(Number).
         refine(val => !isNaN(val), {
             message: "Limit must to be a valid numeric value!"
-        }),
+        }).
+        catch(10),
     offset: z.
         string().
         min(0).
@@ -18,8 +19,9 @@ const querySchema = z.object({
         transform(Number).
         refine(val => !isNaN(val), {
             message: "Offset must to be a valid numeric value!"
-        })
-});
+        }).
+        catch(0)
+}).optional();
 
 export const parseQuery = createQueryValidator(querySchema);
 

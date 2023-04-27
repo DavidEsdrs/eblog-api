@@ -1,4 +1,5 @@
 import { IPostsRepository } from "../../../repositories/IPostsRepository";
+import { fulfillPost } from "../../../utils/fulfillPost";
 import { IGetFeaturedPostsDTO } from "./GetFeaturedPosts.dto";
 
 export class GetFeaturedPostsService {
@@ -7,7 +8,8 @@ export class GetFeaturedPostsService {
     ) {}
 
     async execute({ limit, offset }: IGetFeaturedPostsDTO) {
-        const posts = await this.postsRepository.getFeaturedPosts({ limit, offset });
-        return posts;
+        const posts = await this.postsRepository.getFeaturedPosts({ limit, offset  });
+        const fulfilledPost = posts.map(fulfillPost);
+        return fulfilledPost;
     }
 }

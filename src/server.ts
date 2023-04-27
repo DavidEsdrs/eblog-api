@@ -4,12 +4,17 @@ import express from "express";
 import { router } from "./router";
 import { config } from "dotenv";
 import { errorHandler } from "./middlewares/errorHandler";
+import cors from "cors";
 
 config({
     path: ".env.dev"
 });
 
 const app = express();
+app.use(cors({
+    origin: process.env.FRONT_END_URL,
+    credentials: true
+}));
 app.use(express.json());
 app.use(router);
 app.use(errorHandler);

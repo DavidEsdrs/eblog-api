@@ -8,6 +8,8 @@ import { buildGetPost } from "./useCases/posts/getPost/buildGetPost";
 import { buildGetFeaturedPost } from "./useCases/posts/getFeaturedPosts/buildGetFeaturedPosts";
 import getFeaturedPostsMiddlewares from "./useCases/posts/getFeaturedPosts/GetFeaturedPosts.middleware";
 import { buildGetContent } from "./useCases/posts/getContent/buildGetContent";
+import { buildGetPostFeaturedImage } from "./useCases/posts/getFeaturedImage/buildGetPostFeaturedImage";
+import { buildUpdatePost } from "./useCases/posts/update/buildUpdatePost";
 
 const router = Router();
 
@@ -23,6 +25,10 @@ router.get("/posts/:id", ensureAuthUser, (req, res) => buildGetPost().handle(req
 
 router.get("/posts", ensureAuthUser, ...getFeaturedPostsMiddlewares, (req, res) => buildGetFeaturedPost().handle(req, res));
 
-router.get("/posts/:id", ensureAuthUser, (req, res) => buildGetContent().handle(req, res));
+router.get("/posts/:id/content", ensureAuthUser, (req, res) => buildGetContent().handle(req, res));
 
-export { router }
+router.get("/posts/:id/image", ensureAuthUser, (req, res) => buildGetPostFeaturedImage().handle(req, res));
+
+router.put("/posts/:id", ensureAuthUser, (req, res) => buildUpdatePost().handle(req, res));
+
+export { router };

@@ -6,6 +6,8 @@ import { CreatePostsTable1682426203039 } from "./migrations/1682426203039-create
 import { Post } from "./entities/Post";
 import { CreateRefreshTokensTable1682619006685 } from "./migrations/1682619006685-create_refresh_tokens_table";
 import { RefreshToken } from "./entities/RefreshToken";
+import { CreateRolesTable1682654836237 } from "./migrations/1682654836237-create_roles_table";
+import { Role } from "./entities/Role";
 
 config({
     path: ".env.dev"
@@ -17,12 +19,14 @@ const AppDataSource = new DataSource({
     migrations: [
         CreateUsersTable1682389045477,
         CreatePostsTable1682426203039,
-        CreateRefreshTokensTable1682619006685
+        CreateRefreshTokensTable1682619006685,
+        CreateRolesTable1682654836237
     ],
     entities: [
         User,
         Post,
-        RefreshToken
+        RefreshToken,
+        Role
     ]
 });
 

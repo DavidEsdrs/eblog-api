@@ -1,11 +1,6 @@
 import { Post } from "../../entities/Post";
 import AppDataSource from "../../ormconfig";
-
-export type AsBoolean<T> = {
-    [P in keyof T]?: 
-        T[P] extends Date ? boolean : 
-            (T[P] extends object ? AsBoolean<T[P]> : boolean)
-};
+import { AsBoolean } from "../../utils/types";
 
 export const PostsRepository = AppDataSource.getRepository(Post).extend({
     async getFeaturedPosts({ limit = 10, offset = 0 }: { limit: number, offset: number }) {
@@ -28,7 +23,7 @@ export const PostsRepository = AppDataSource.getRepository(Post).extend({
     async findPostById(id: number, select?: AsBoolean<Post>) {
         const post = await this.findOne({ 
             where: { id }, 
-            select, 
+            select,
             relations: select?.creator ? ["creator"] : [] 
         });
         return post;
@@ -38,3 +33,5 @@ export const PostsRepository = AppDataSource.getRepository(Post).extend({
         await this.update({ id }, { title, content, summary });
     }
 });
+
+export { AsBoolean };

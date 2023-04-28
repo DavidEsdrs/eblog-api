@@ -5,8 +5,7 @@ import { JwtPayload, sign, verify } from "jsonwebtoken";
 
 export class CreateRefreshTokenController {
     constructor(
-        private refreshTokenRepository: IRefreshTokenRepository,
-        private usersRepository: IUsersRepository
+        private refreshTokenRepository: IRefreshTokenRepository
     ) {}
 
     async handle(req: Request, res: Response) {

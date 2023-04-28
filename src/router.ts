@@ -35,7 +35,7 @@ router.get("/posts/:id/image", ensureAuthUser, (req, res) => buildGetPostFeature
 
 router.put("/posts/:id", ensureAuthUser, (req, res) => buildUpdatePost().handle(req, res));
 
-router.get("/refresh", (req, res) => new CreateRefreshTokenController(RefreshTokenRepository, UsersRepository).handle(req, res));
+router.get("/refresh", (req, res) => new CreateRefreshTokenController(RefreshTokenRepository).handle(req, res));
 
 router.get("/users/:id", ensureAuthUser, (req, res) => buildGetProfile().handle(req, res));
 

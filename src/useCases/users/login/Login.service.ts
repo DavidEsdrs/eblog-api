@@ -22,6 +22,6 @@ export class LoginService {
             subject: String(user.id), 
             expiresIn: process.env.JWT_ACCESS_TOKEN_TIMESPAN 
         });
-        return accessToken;
+        return { accessToken, user };
     }
 }

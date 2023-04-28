@@ -10,6 +10,9 @@ import getFeaturedPostsMiddlewares from "./useCases/posts/getFeaturedPosts/GetFe
 import { buildGetContent } from "./useCases/posts/getContent/buildGetContent";
 import { buildGetPostFeaturedImage } from "./useCases/posts/getFeaturedImage/buildGetPostFeaturedImage";
 import { buildUpdatePost } from "./useCases/posts/update/buildUpdatePost";
+import { CreateRefreshTokenController } from "./useCases/users/refreshToken/CreateRefreshToken.controller";
+import { RefreshTokenRepository } from "./repositories/implementations/RefreshTokenRepository";
+import { UsersRepository } from "./repositories/implementations/UsersRepository";
 
 const router = Router();
 
@@ -30,5 +33,7 @@ router.get("/posts/:id/content", ensureAuthUser, (req, res) => buildGetContent()
 router.get("/posts/:id/image", ensureAuthUser, (req, res) => buildGetPostFeaturedImage().handle(req, res));
 
 router.put("/posts/:id", ensureAuthUser, (req, res) => buildUpdatePost().handle(req, res));
+
+router.get("/refresh", (req, res) => new CreateRefreshTokenController(RefreshTokenRepository, UsersRepository).handle(req, res));
 
 export { router };

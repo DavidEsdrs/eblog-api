@@ -1,6 +1,5 @@
-import { Repository } from "typeorm";
 import { Post } from "../entities/Post";
-import { AsBoolean } from "./implementations/PostsRepository";
+import { AsBoolean } from "../utils/types";
 
 export interface IPostsRepository {
     getFeaturedPosts({ limit, offset }: { limit: number, offset: number }): Promise<Post[]>;

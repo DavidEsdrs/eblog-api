@@ -1,4 +1,5 @@
 import { IPostsRepository } from "../../../repositories/IPostsRepository";
+import { ResourceNotFoundError } from "../../../utils/httpErrors";
 import { IGetContentDTO } from "./GetContent.dto";
 
 export class GetContentService {
@@ -9,7 +10,7 @@ export class GetContentService {
     async execute({ id }: IGetContentDTO) {
         const post = await this.postsRepository.findPostById(id);
         if(!post) {
-            throw new Error("The given post id doesn't exist!");
+            throw new ResourceNotFoundError("The given post id doesn't exist!");
         }
         return post;
     }

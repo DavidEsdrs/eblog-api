@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { Post } from "../../../entities/Post";
 import { IGetPostDTO } from "./GetPost.controller";
 import { IPostsRepository } from "../../../repositories/IPostsRepository";
+import { ResourceNotFoundError } from "../../../utils/httpErrors";
 
 export class GetPostService {
     constructor(
@@ -22,7 +23,7 @@ export class GetPostService {
             updated_at: true
         });
         if(!post) {
-            throw new Error("The given post id doesn't exist in database!");
+            throw new ResourceNotFoundError();
         }
         return post;
     }

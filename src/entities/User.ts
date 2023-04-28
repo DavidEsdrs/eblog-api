@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, OneToMany } from "typeorm"
+import { Role } from "./Role";
 
 @Entity("users")
 export class User {
@@ -16,4 +17,7 @@ export class User {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @OneToMany(type => Role, role => role.user, { eager: true })
+    roles: Role[];
 }

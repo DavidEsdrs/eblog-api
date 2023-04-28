@@ -13,6 +13,7 @@ import { buildUpdatePost } from "./useCases/posts/update/buildUpdatePost";
 import { CreateRefreshTokenController } from "./useCases/users/refreshToken/CreateRefreshToken.controller";
 import { RefreshTokenRepository } from "./repositories/implementations/RefreshTokenRepository";
 import { UsersRepository } from "./repositories/implementations/UsersRepository";
+import { buildGetProfile } from "./useCases/users/profile/buildGetProfile";
 
 const router = Router();
 
@@ -35,5 +36,7 @@ router.get("/posts/:id/image", ensureAuthUser, (req, res) => buildGetPostFeature
 router.put("/posts/:id", ensureAuthUser, (req, res) => buildUpdatePost().handle(req, res));
 
 router.get("/refresh", (req, res) => new CreateRefreshTokenController(RefreshTokenRepository, UsersRepository).handle(req, res));
+
+router.get("/users/:id", ensureAuthUser, (req, res) => buildGetProfile().handle(req, res));
 
 export { router };

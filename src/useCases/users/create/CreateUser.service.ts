@@ -4,10 +4,12 @@ import { ICreateUserDTO } from "./CreateUser.dto";
 import { hash } from "argon2";
 import { ForbiddenRequestError } from "../../../utils/httpErrors";
 import { IUsersRepository } from "../../../repositories/IUsersRepository";
+import { IRolesRepository } from "../../../repositories/IRolesRepository";
 
 export class CreateUserService {
     constructor(
-        private usersRepository: IUsersRepository
+        private usersRepository: IUsersRepository,
+        private rolesRepository: IRolesRepository
     ) {}
 
     async execute({ email, password }: ICreateUserDTO) {
@@ -16,7 +18,8 @@ export class CreateUserService {
             throw new ForbiddenRequestError();
         }
         const pwdHash = await hash(password);
-        const user = this.usersRepository.create({ email, password: pwdHash });
+        const role = this.rolesRepository.create({ type: "reader" });
+        const user = this.usersRepository.create({ email, password: pwdHash, roles: [role] });
         await this.usersRepository.saveUser(user);
         return user;
     }

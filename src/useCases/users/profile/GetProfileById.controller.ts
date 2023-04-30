@@ -7,7 +7,7 @@ export interface IGetProfileService {
     execute(args: IGetProfileDTO): Promise<User>;
 }
 
-export class GetProfileController {
+export class GetProfileByIdController {
     constructor(
         private service: IGetProfileService
     ) {}

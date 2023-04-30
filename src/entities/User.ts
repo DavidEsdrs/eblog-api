@@ -6,6 +6,9 @@ export class User {
     @PrimaryGeneratedColumn()
     readonly id: number;
 
+    @Column({ name: "username", type: "varchar" })
+    username: string;
+
     @Column({ name: "email", type: "varchar" })
     email: string;
     

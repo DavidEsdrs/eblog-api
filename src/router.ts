@@ -12,8 +12,9 @@ import { buildGetPostFeaturedImage } from "./useCases/posts/getFeaturedImage/bui
 import { buildUpdatePost } from "./useCases/posts/update/buildUpdatePost";
 import { CreateRefreshTokenController } from "./useCases/users/refreshToken/CreateRefreshToken.controller";
 import { RefreshTokenRepository } from "./repositories/implementations/RefreshTokenRepository";
-import { UsersRepository } from "./repositories/implementations/UsersRepository";
-import { buildGetProfile } from "./useCases/users/profile/buildGetProfile";
+import { buildGetProfileById, buildGetProfileByToken } from "./useCases/users/profile/buildGetProfile";
+import { buildAddRole } from "./useCases/admin/addRole/buildAddRole";
+import { addRoleMiddlewares } from "./useCases/admin/addRole/AddRole.middleware";
 
 const router = Router();
 
@@ -37,6 +38,10 @@ router.put("/posts/:id", ensureAuthUser, (req, res) => buildUpdatePost().handle(
 
 router.get("/refresh", (req, res) => new CreateRefreshTokenController(RefreshTokenRepository).handle(req, res));
 
-router.get("/users/:id", ensureAuthUser, (req, res) => buildGetProfile().handle(req, res));
+router.get("/users/:id", ensureAuthUser, (req, res) => buildGetProfileById().handle(req, res));
+
+router.get("/profile", ensureAuthUser, (req, res) => buildGetProfileByToken().handle(req, res));
+
+router.post("/admin/users/:id/roles", ensureAuthUser, ...addRoleMiddlewares, (req, res) => buildAddRole().handle(req, res));
 
 export { router };

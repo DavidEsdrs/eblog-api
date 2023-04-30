@@ -18,6 +18,6 @@ export class User {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @OneToMany(type => Role, role => role.user, { eager: true })
+    @OneToMany(type => Role, role => role.user, { eager: true, cascade: true })
     roles: Role[];
 }

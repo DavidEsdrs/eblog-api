@@ -4,7 +4,8 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 1876
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: app
+      MYSQL_USER: user
     ports:
-      - 3030:3306
+      - 3333:3306

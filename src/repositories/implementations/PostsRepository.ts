@@ -31,6 +31,27 @@ export const PostsRepository = AppDataSource.getRepository(Post).extend({
 
     async updatePost(id: number, { title, content, summary }: Pick<Partial<Post>, "title" | "summary" | "content">) {
         await this.update({ id }, { title, content, summary });
+    },
+
+    async findPostsByUser(user_id: number) {
+        const posts = await this.find({ 
+            select: {
+                id: true,
+                title: true,
+                summary: true,
+                created_at: true,
+                featured_image: true,
+                updated_at: true
+            },
+            where: { 
+                creator: { 
+                    id: user_id 
+                } 
+            },
+            relations: ["creator"]
+        });
+        console.log({posts})
+        return posts;
     }
 });
 

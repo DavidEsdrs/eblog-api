@@ -15,6 +15,7 @@ import { RefreshTokenRepository } from "./repositories/implementations/RefreshTo
 import { buildGetProfileById, buildGetProfileByToken } from "./useCases/users/profile/buildGetProfile";
 import { buildAddRole } from "./useCases/admin/addRole/buildAddRole";
 import { addRoleMiddlewares } from "./useCases/admin/addRole/AddRole.middleware";
+import { buildGetPostsByUser } from "./useCases/posts/getPostsByUser/buildGetPostsByUser";
 
 const router = Router();
 
@@ -43,5 +44,7 @@ router.get("/users/:id", ensureAuthUser, (req, res) => buildGetProfileById().han
 router.get("/profile", ensureAuthUser, (req, res) => buildGetProfileByToken().handle(req, res));
 
 router.post("/admin/users/:id/roles", ensureAuthUser, ...addRoleMiddlewares, (req, res) => buildAddRole().handle(req, res));
+
+router.get("/users/:id/posts", ensureAuthUser, (req, res) => buildGetPostsByUser().handle(req, res));
 
 export { router };

@@ -3,7 +3,7 @@ import { Post } from "../../../entities/Post";
 
 export interface IGetPostsByUserDTO {
     user: number;
-    
+    createdAtOrder: "ASC" | "DESC";
 }
 
 export interface IGetPostsByUserService {
@@ -17,7 +17,8 @@ export class GetPostsByUserController {
     
     async handle(req: Request, res: Response) {
         const { user_id } = req;
-        const posts = await this.service.execute({ user: user_id });
+        const createdAtOrder = req.query.createdAt as "ASC" | "DESC";
+        const posts = await this.service.execute({ user: user_id, createdAtOrder });
         return res.json(posts);
     }
 }

@@ -7,8 +7,12 @@ export class GetPostsByUserService {
         private postsRepository: IPostsRepository
     ) {}
 
-    async execute({ user }: IGetPostsByUserDTO) {
-        const posts = await this.postsRepository.findPostsByUser(user);
+    async execute({ user, createdAtOrder }: IGetPostsByUserDTO) {
+        const posts = await this.postsRepository.findPostsByUser(user, {
+            orderBy: {
+                createdAtOrder
+            }
+        });
         return posts.map(fulfillPost);
     }
 }

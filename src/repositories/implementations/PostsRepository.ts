@@ -33,7 +33,7 @@ export const PostsRepository = AppDataSource.getRepository(Post).extend({
         await this.update({ id }, { title, content, summary });
     },
 
-    async findPostsByUser(user_id: number) {
+    async findPostsByUser(user_id: number, options?: { orderBy?: { [key: string]: "DESC" | "ASC" } }) {
         const posts = await this.find({ 
             select: {
                 id: true,
@@ -48,9 +48,11 @@ export const PostsRepository = AppDataSource.getRepository(Post).extend({
                     id: user_id 
                 } 
             },
-            relations: ["creator"]
+            relations: ["creator"],
+            order: {
+                created_at: options.orderBy.createdAtOrder
+            }
         });
-        console.log({posts})
         return posts;
     }
 });

@@ -39,7 +39,7 @@ router.put("/posts/:id", ensureAuthUser, (req, res) => buildUpdatePost().handle(
 
 router.get("/refresh", (req, res) => new CreateRefreshTokenController(RefreshTokenRepository).handle(req, res));
 
-router.get("/users/:id", ensureAuthUser, (req, res) => buildGetProfileById().handle(req, res));
+router.get("/users", ensureAuthUser, (req, res) => buildGetProfileByToken().handle(req, res));
 
 router.get("/profile", ensureAuthUser, (req, res) => buildGetProfileByToken().handle(req, res));
 

@@ -1,5 +1,3 @@
-import { Repository } from "typeorm";
-import { Post } from "../../../entities/Post";
 import { IGetPostDTO } from "./GetPost.controller";
 import { IPostsRepository } from "../../../repositories/IPostsRepository";
 import { ResourceNotFoundError } from "../../../utils/httpErrors";

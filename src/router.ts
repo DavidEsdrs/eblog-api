@@ -16,10 +16,11 @@ import { buildGetProfileById, buildGetProfileByToken } from "./useCases/users/pr
 import { buildAddRole } from "./useCases/admin/addRole/buildAddRole";
 import { addRoleMiddlewares } from "./useCases/admin/addRole/AddRole.middleware";
 import { buildGetPostsByUser } from "./useCases/posts/getPostsByUser/buildGetPostsByUser";
+import { healthcheck } from "./utils/healthcheck";
 
 const router = Router();
 
-router.get("/health", (req, res) => res.send("running"));
+router.get("/health", healthcheck);
 
 router.post("/signup", (req, res) => buildCreateUser().handle(req, res));
 

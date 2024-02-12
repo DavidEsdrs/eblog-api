@@ -6,6 +6,26 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: app
-      MYSQL_USER: root
     ports:
       - 3333:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      API_URL: "http://localhost:3001"
+      FRONT_END_URL: "http://localhost:3000"
+      SERVER_PORT: 3001
+      DATABASE_URL: "mysql://root:password@mysql:3306/app"
+      JWT_ACCESS_TOKEN_SECRET: "JWTSECRET"
+      JWT_ACCESS_TOKEN_TIMESPAN: "1h"
+      JWT_REFRESH_TOKEN_SECRET_LIFESPAN: "10d"
+      JWT_REFRESH_TOKEN_SECRET: "REFRESHTOKENSECRET"
+    ports:
+      - 3001:3001

@@ -36,6 +36,7 @@ AppDataSource.initialize()
     })
     .catch((err) => {
         console.error("Error during Data Source initialization", err);
+        throw err; // we re-throw the error to enable the container to restart
     });
 
 export default AppDataSource;

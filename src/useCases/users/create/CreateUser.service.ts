@@ -12,14 +12,14 @@ export class CreateUserService {
         private rolesRepository: IRolesRepository
     ) {}
 
-    async execute({ email, password }: ICreateUserDTO) {
+    async execute({ username, email, password }: ICreateUserDTO) {
         const credentialsTaken = await this.usersRepository.findByEmail(email);
         if(credentialsTaken) {
             throw new ForbiddenRequestError();
         }
         const pwdHash = await hash(password);
         const role = this.rolesRepository.create({ type: "reader" });
-        const user = this.usersRepository.create({ email, password: pwdHash, roles: [role] });
+        const user = this.usersRepository.create({ username, email, password: pwdHash, roles: [role] });
         await this.usersRepository.saveUser(user);
         return user;
     }

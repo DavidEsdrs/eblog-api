@@ -12,8 +12,8 @@ export class CreateUserController {
     ) {}
 
     async handle(req: Request, res: Response) {
-        const { email, password } = req.body;
-        const user = await this.service.execute({ email, password });
+        const { username, email, password } = req.body;
+        const user = await this.service.execute({ username, email, password });
         return res.json(user);
     }
 }

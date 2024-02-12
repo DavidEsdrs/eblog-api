@@ -33,6 +33,8 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
+    "start": "node build/server.js",
+    "start:prod": "npx typeorm-ts-node-commonjs migration:run -d ./build/ormconfig.js && node build/server.js",
     "build": "tsc",
     "dev": "set NODE_ENV=dev&&tsx watch src/server.ts",
     "migration:create": "typeorm migration:create",

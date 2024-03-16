@@ -60,3 +60,9 @@ node build/server.js
 ```
 
 8. Enjoy! :D
+
+## API Docs
+
+The API Swagger Documentation is located at path "/api-docs".
+
+**Note: The documentation is currently under development**
